@@ -14,7 +14,7 @@
 
 - <p align='justify'>O <b>corpus UOL AES-PT</b> é um corpus de redações no estilo do ENEM. Cada redação possui um tópico e um conjunto de redações relacionadas. Nesse corpus, existem vários tópicos e suas respectivas redações. O objetivo é predizer a nota final de cada redação de acordo com o grupo de notas 0, 200, 400, 600, 800 e 1000. Para mais informações e download dos dados, acesse o link: https://github.com/evelinamorim/aes-pt.</p>
 
-- <p align='justify'>O <b>>corpus TweetSentBr</b> é um corpus em português de tweets. Cada tweet está rotulado com uma das classes: positivo, negativo e neutro. Para mais informações e download do corpus, acesse o link https://bitbucket.org/HBrum/tweetsentbr/src/master/.</p>
+- <p align='justify'>O <b>corpus TweetSentBr</b> é um corpus em português de tweets. Cada tweet está rotulado com uma das classes: positivo, negativo e neutro. Para mais informações e download do corpus, acesse o link https://bitbucket.org/HBrum/tweetsentbr/src/master/.</p>
 
 # Representação
 
@@ -55,7 +55,8 @@
 O relatório deve ser organizado nas seguintes seções:</p>
 
 - <p align='justify'><b>Tarefa e Dados:</b> Descreva a tarefa escolhida e os dados. Escreva código que leia os dados e calcule e imprima quantas instâncias os dados têm. Também, seu código deve calcular a média de tokens por instância, isto é, quantos tokens, na média cada documento do seu conjunto de dados possui. Imprima esse único número.
-Visualização dos dados: Coloque nesta seção os gráficos do PCA e do t-SNE, para cada representação. Responda também às seguintes perguntas: a) Existe algum padrão com relação às classes? b) Caso exista algum padrão, você pode concluir alguma coisa? c) Caso não exista, você consegue dizer se isso tem a ver com alguma representação ou classe?</p>
+
+<p align='justify'><b>Visualização dos dados:</b> Coloque nesta seção os gráficos do PCA e do t-SNE, para cada representação. Responda também às seguintes perguntas: a) Existe algum padrão com relação às classes? b) Caso exista algum padrão, você pode concluir alguma coisa? c) Caso não exista, você consegue dizer se isso tem a ver com alguma representação ou classe?</p>
 
 <p align='justify'><b>Classificadores:</b> Descreva sucintamente os dois classificadores escolhidos. Você usou algum parâmetro que não seja padrão? Se sim, mencione nesta seção.</p>
 
