@@ -26,9 +26,8 @@
 
 <p align='justify'>Lembrando que você deve dividir seu conjunto em treino e teste. No TF-IDF, você só pode aplicar o método fit no conjunto de treino. Uma sugestão é dividir 80% do conjunto de dados para treino e 20% para teste. Essa divisão é aleatória, mas você pode usar o método train_test_split para essa divisão. O exemplo a seguir mostra como usar esse método:</p>
 
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(
-...    X, y, test_size=0.20, random_state=42)
+    from sklearn.model_selection import train_test_split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
 
 ### Visualização dos dados
 
