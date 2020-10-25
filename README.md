@@ -1,5 +1,3 @@
-# aed_projeto_4
-
 ## Projeto do Módulo de NLP
 
 <p align='justify'>No projeto do módulo de NLP vamos tentar resolver um problema de classificação de textos. Você escolherá um de três datasets cujo objetivo é classificar em um conjunto de classes. Você deverá utilizar três metodologias ensinadas em nossas aulas para poder classificar esses textos. A seguir, mais detalhes do projeto para que você possa resolver.</p>
@@ -28,9 +26,9 @@
 
 <p align='justify'>Lembrando que você deve dividir seu conjunto em treino e teste. No TF-IDF, você só pode aplicar o método fit no conjunto de treino. Uma sugestão é dividir 80% do conjunto de dados para treino e 20% para teste. Essa divisão é aleatória, mas você pode usar o método train_test_split para essa divisão. O exemplo a seguir mostra como usar esse método:</p>
 
-            from sklearn.model_selection import train_test_split
-            X_train, X_test, y_train, y_test = train_test_split(
-            ...    X, y, test_size=0.20, random_state=42)
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(
+...    X, y, test_size=0.20, random_state=42)
 
 ### Visualização dos dados
 
