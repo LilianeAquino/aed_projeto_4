@@ -1,31 +1,88 @@
+import re
+import nltk
+import itertools
 import numpy as np
 import pandas as pd
-import re
 from bs4 import BeautifulSoup
-import nltk
+from autocorrect import Speller
+from unicodedata import normalize
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from unicodedata import normalize
 from sklearn.feature_extraction.text import CountVectorizer
 
 from modules.acronymsInternet import acronymsInternet
 
 REPLACE_BY_SPACE_RE = re.compile('[/(){}\[\]\|@,;]')
 PUNCTUATION_RE = re.compile(r'[^0-9a-z #+_]')
-STOPWORDS = stopwords.words('portuguese')
+SMALL_WORDS_RE = re.compile(r'\W*\b\w{1,2}\b')
+BLANKSPACE_RE = re.compile(r'\s{2,}')
 
-def clean_text(text):
+STOPWORDS = stopwords.words('portuguese')
+STOPWORDS.remove('muito')
+STOPWORDS.remove('mais')
+STOPWORDS.remove('mas')
+
+
+def cleaning(text):
+    cleanedText = wordBreaker(text)
+    cleanedText = cleanedText.lower()
+    cleanedText = standardizingWords(cleanedText)
+    cleanedText = cleanText(cleanedText)
+    cleanedText = expandAcronyms(cleanedText)
+    cleanedText = removeEmojify(cleanedText)
+    cleanedText = removeSmallWords(cleanedText)
+    return cleanedText
+
+
+def wordBreaker(text):
+    """
+      Função para separar palavras juntadas. Ex.: UmExemplo.
+    """
+    textBreaked = ' '.join(re.findall('[A-Z][^A-Z]*', text.title()))    
+    if textBreaked is not '':
+        return textBreaked
+    return text
+
+
+def standardizingWords(text):
+    """
+      Função para padronizar palavras em formato não adequados. Ex.: Um Exemploooooo.
+    """
+    text = ''.join(''.join(s)[:2] for _, s in itertools.groupby(text))    
+    return text
+
+
+def cleanText(text):
     text = BeautifulSoup(text, "lxml").text
-    text = text.lower()
     text = normalize('NFKD', text).encode('ASCII', 'ignore').decode('ASCII')
     text = REPLACE_BY_SPACE_RE.sub(' ', text)
-    text = PUNCTUATION_RE.sub('', text)
+    text = PUNCTUATION_RE.sub(' ', text)
     text = ' '.join(word for word in text.split() if word not in STOPWORDS)
     return text
 
 
 def expandAcronyms(text):
+    """
+      Função para expansão de abreviaturas da internet.
+    """
     return ' '.join([acronymsInternet.get(i, i) for i in text.split()])
+
+
+def removeEmojify(text):
+    regrex_pattern = re.compile(pattern = '['
+        u"\U0001F600-\U0001F64F"
+        u"\U0001F300-\U0001F5FF"
+        u"\U0001F680-\U0001F6FF"
+        u"\U0001F1E0-\U0001F1FF"
+                           ']+', flags = re.UNICODE)
+    return regrex_pattern.sub(r'',text)
+
+
+def removeSmallWords(text):
+    text = SMALL_WORDS_RE.sub(' ', text)
+    text = BLANKSPACE_RE.sub(' ', str(text))
+    text = text.strip()
+    return text
 
 
 def tokenize(text):
@@ -35,7 +92,7 @@ def tokenize(text):
     return tokens
 
 
-def print_example(idx, df):
+def printExample(idx, df):
     example = df[df.index==idx][['text', 'rating', 'stars']].values[0]
     
     if len(example) > 0:
@@ -44,11 +101,11 @@ def print_example(idx, df):
         print(f'Stars: {example[2]}')
         
 
-def average_tokens(df, col):
+def averageTokens(df, col):
     return df[col].apply(lambda x: len(x.split(' '))).mean()
 
 
-def get_top_n_words(corpus, ngrams=1, n=20): 
+def getTopNwords(corpus, ngrams=1, n=20): 
     if ngrams == 3:
         vec = CountVectorizer(ngram_range=(3, 3), stop_words=STOPWORDS).fit(corpus)    
     elif ngrams == 2:

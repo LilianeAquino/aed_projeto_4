@@ -193,5 +193,14 @@ acronymsInternet = {
 'xau' : 'tchau',
 'xente' : 'gente',
 'xoxo':'beijo',
-'yolo':'so se vive uma vez'
+'yolo':'so se vive uma vez',
+'app' : 'aplicativo',
+'pc': 'computador',
+'ft': 'foto',
+'tbm': 'também',
+'net': 'internet',
+'leg': 'travada',
+'cel': 'celular',
+'pr':'para',
+'qnd':'quando'
 }
