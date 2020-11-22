@@ -202,5 +202,9 @@ acronymsInternet = {
 'leg': 'travada',
 'cel': 'celular',
 'pr':'para',
-'qnd':'quando'
+'qnd':'quando',
+'vo': 'vou',
+'vms': 'vamos',
+'etc': 'etecetera',
+'oq': 'o que'
 }

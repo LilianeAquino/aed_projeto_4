@@ -4,11 +4,11 @@ import itertools
 import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
-from autocorrect import Speller
 from unicodedata import normalize
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
+from spellchecker import SpellChecker
 
 from modules.acronymsInternet import acronymsInternet
 
@@ -26,9 +26,10 @@ STOPWORDS.remove('mas')
 def cleaning(text):
     cleanedText = wordBreaker(text)
     cleanedText = cleanedText.lower()
-    cleanedText = standardizingWords(cleanedText)
+    cleanedText = reduceLengthening(cleanedText)
     cleanedText = cleanText(cleanedText)
     cleanedText = expandAcronyms(cleanedText)
+    cleanedText = spellChecker(cleanedText)
     cleanedText = removeEmojify(cleanedText)
     cleanedText = removeSmallWords(cleanedText)
     return cleanedText
@@ -44,12 +45,20 @@ def wordBreaker(text):
     return text
 
 
-def standardizingWords(text):
+def reduceLengthening(text):
     """
-      Função para padronizar palavras em formato não adequados. Ex.: Um Exemploooooo.
+      Função para reduzir palavras alongadas. Ex.: Um Exemploooooo.
     """
     text = ''.join(''.join(s)[:2] for _, s in itertools.groupby(text))    
     return text
+
+
+def spellChecker(text):
+    """
+      Função para correção ortográfica.
+    """
+    spell = SpellChecker(language='pt')
+    return ' '.join([spell.correction(word) for word in text.split()])
 
 
 def cleanText(text):
@@ -87,7 +96,7 @@ def removeSmallWords(text):
 
 def tokenize(text):
     tokens = word_tokenize(text)
-    tokens = [word for word in tokens if not word in STOP_WORDS]
+    tokens = [word for word in tokens if not word in STOPWORDS]
     tokens = [word for word in tokens if word.isalpha()]
     return tokens
 
