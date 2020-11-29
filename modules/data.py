@@ -10,7 +10,12 @@ from nltk.tokenize import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
 from spellchecker import SpellChecker
 
+import sys
+sys.path.append('/content/gdrive/MyDrive/Colab Notebooks/aed_projeto_4/modules/')
+sys.path.append('/content/gdrive/MyDrive/Colab Notebooks/aed_projeto_4/')
+sys.path.append('/content/gdrive/MyDrive/Colab Notebooks/')
 from modules.acronymsInternet import acronymsInternet
+
 
 REPLACE_BY_SPACE_RE = re.compile('[/(){}\[\]\|@,;]')
 PUNCTUATION_RE = re.compile(r'[^0-9a-z #+_]')
