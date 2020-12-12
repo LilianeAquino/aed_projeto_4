@@ -29,6 +29,9 @@ STOPWORDS.remove('mas')
 
 
 def cleaning(text):
+    """
+      Função para pré-processar o texto.
+    """
     cleanedText = wordBreaker(text)
     cleanedText = cleanedText.lower()
     cleanedText = reduceLengthening(cleanedText)
@@ -67,6 +70,9 @@ def spellChecker(text):
 
 
 def cleanText(text):
+    """
+      Função para limpeza do texto.
+    """
     text = BeautifulSoup(text, "lxml").text
     text = normalize('NFKD', text).encode('ASCII', 'ignore').decode('ASCII')
     text = REPLACE_BY_SPACE_RE.sub(' ', text)
@@ -83,6 +89,9 @@ def expandAcronyms(text):
 
 
 def removeEmojify(text):
+    """
+      Função para remover emojis.
+    """
     regrex_pattern = re.compile(pattern = '['
         u"\U0001F600-\U0001F64F"
         u"\U0001F300-\U0001F5FF"
@@ -93,6 +102,9 @@ def removeEmojify(text):
 
 
 def removeSmallWords(text):
+    """
+      Função para remover palavras pequenas
+    """
     text = SMALL_WORDS_RE.sub(' ', text)
     text = BLANKSPACE_RE.sub(' ', str(text))
     text = text.strip()
@@ -100,6 +112,9 @@ def removeSmallWords(text):
 
 
 def tokenize(text):
+    """
+      Função para tokenizar os dados
+    """
     tokens = word_tokenize(text)
     tokens = [word for word in tokens if not word in STOPWORDS]
     tokens = [word for word in tokens if word.isalpha()]
@@ -107,6 +122,9 @@ def tokenize(text):
 
 
 def printExample(idx, df):
+    """
+      Função para imprimir exemplos de texto.
+    """
     example = df[df.index==idx][['text', 'rating', 'stars']].values[0]
     
     if len(example) > 0:
@@ -116,10 +134,16 @@ def printExample(idx, df):
         
 
 def averageTokens(df, col):
+    """
+      Função para calcular a média de tokens.
+    """
     return df[col].apply(lambda x: len(x.split(' '))).mean()
 
 
-def getTopNwords(corpus, ngrams=1, n=20): 
+def getTopNwords(corpus, ngrams=1, n=20):
+    """
+      Função para calcular n-grams.
+    """
     if ngrams == 3:
         vec = CountVectorizer(ngram_range=(3, 3), stop_words=STOPWORDS).fit(corpus)    
     elif ngrams == 2:
